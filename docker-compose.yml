@@ -1,9 +1,9 @@
 version: "3.3"
 services:
   api:
-    build: ./api/
+    build: .
     volumes:
-      - ./api/app:/app
+      - ./app:/app
     ports:
       - 8001:80
     #command: ["/start.sh"]
