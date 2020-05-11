@@ -6,11 +6,20 @@
     <h1>Listen 2 Pytube</h1>
     <h3>Simple App to download videos and music from youtube</h3>
 
-    <form method="POST" action="/">
+    <form method="POST" action="/" onsubmit="disableButton()">
         {{ form.csrf_token }}
         {{ form.url(placeholder="YouTube URL...") }}
-        <button>Download</button>
+        <button id="submit_button">Download</button>
     </form>
 </div>
+
+<script>
+    function disableButton() {
+        const button = document.getElementById('submit_button');
+        button.disabled = true;
+        button.innerText = "Processing...";
+        button.classList.add('disabled');
+    };
+</script>
 
 {% endblock %}

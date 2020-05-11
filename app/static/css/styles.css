@@ -38,9 +38,18 @@ button {
     color: white;
 }
 
+button.disabled {
+    background-color: gray;
+}
+
 button:hover {
     cursor: pointer;
     background-color: lightblue;
+}
+
+button.disabled:hover {
+    background-color: gray;
+    cursor: not-allowed;
 }
 
 h1 {
