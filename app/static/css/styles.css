@@ -1,3 +1,48 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    font-family: 'Roboto', sans-serif;
+}
+
+div.content {
+    display: flex;
+    flex-direction: column;
+    padding: 20px;
+}
+
+form {
+    width: 600px;
+}
+
+input, button {
+    display: block;
+    width: 100%;
+    margin: 10px 0;
+}
+
+input[type=text] {
+    padding: 10px;
+    font-size: 18px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+button {
+    width: 200px;
+    background-color: lightskyblue;
+    padding: 10px;
+    font-size: 20px;
+    border-radius: 5px;
+    border: none;
+    color: white;
+}
+
+button:hover {
+    cursor: pointer;
+    background-color: lightblue;
+}
+
 h1 {
-    color: lightblue;
+    color: lightskyblue;
 }

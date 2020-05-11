@@ -1,10 +1,11 @@
-from flask import Flask, request, make_response, redirect, render_template, session
+from flask import Flask, render_template
+from forms import DownloadForm
 
 app = Flask(__name__)
 
 app.config['SECRET_KEY'] = 'supersecretkey'
-
-todos = ['TODO 1', 'TODO 2', 'TODO 3']
+# app.config['RECAPTCHA_PUBLIC_KEY'] = 'recaptchapublickey'
+# app.config['RECAPTCHA_PRIVATE_KEY'] = 'recaptchaprivatekey'
 
 @app.errorhandler(404)
 def not_found(error):
@@ -13,21 +14,8 @@ def not_found(error):
 
 @app.route('/')
 def index():
-    user_ip = request.remote_addr
-    respose = make_response(redirect('/hello'))
-    session['user_ip'] = user_ip
-
-    return respose
-
-
-@app.route('/hello')
-def hello():
-    user_ip = session.get('user_ip')
-    context = {
-        'user_ip': user_ip,
-        'todos': todos
-    }
-    return render_template('hello.html', **context)
+    form = DownloadForm()
+    return render_template('index.html', form=form)
 
 
 if __name__ == "__main__":
