@@ -1,12 +1,13 @@
 from pytube import YouTube
 
-url = 'https://www.youtube.com/watch?v=vmlSAAxnoSE'
 
-try:
-    yt = YouTube(url)
-except exception:
-    print('Something went wrong')
-    print(exception)
-    exit('Exiting app ...')
+def download(url):
+    data = None
+    try:
+        yt = YouTube(url)
+        data = yt.streams.filter(progressive=True).first().download(output_path='./data')
+    except Exception as e:
+        print('Something went wrong')
+        print(e)
 
-yt.streams.filter(progressive=True).first().download('./data')
+    return data

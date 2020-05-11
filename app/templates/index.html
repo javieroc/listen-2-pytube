@@ -6,7 +6,8 @@
     <h1>Listen 2 Pytube</h1>
     <h3>Simple App to download videos and music from youtube</h3>
 
-    <form action="/" method="post">
+    <form method="POST" action="/">
+        {{ form.csrf_token }}
         {{ form.url(placeholder="YouTube URL...") }}
         <button>Download</button>
     </form>
