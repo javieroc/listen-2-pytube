@@ -29,7 +29,7 @@ def index():
         else:
             filename = download_music(url)
 
-        response = make_response(send_from_directory('/app/data', filename, as_attachment=True))
+        response = make_response(send_from_directory('./data', filename, as_attachment=True))
         response.set_cookie('download_token', download_token)
         return response
 
