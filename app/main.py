@@ -3,8 +3,8 @@ from flask import Flask, request, render_template, url_for, redirect, send_from_
 from forms import DownloadForm
 from downloader import download_video, download_music
 
-if not os.path.exists('/app/data'):
-    os.makedirs('/app/data')
+if not os.path.exists('./data'):
+    os.makedirs('./data')
 
 app = Flask(__name__)
 
