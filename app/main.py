@@ -1,6 +1,10 @@
+import os
 from flask import Flask, request, render_template, url_for, redirect, send_from_directory, make_response
 from forms import DownloadForm
 from downloader import download_video, download_music
+
+if not os.path.exists('/app/data'):
+    os.makedirs('/app/data')
 
 app = Flask(__name__)
 
