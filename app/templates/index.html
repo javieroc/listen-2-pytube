@@ -6,20 +6,71 @@
     <h1>Listen 2 Pytube</h1>
     <h3>Simple App to download videos and music from youtube</h3>
 
-    <form method="POST" action="/" onsubmit="disableButton()">
+    <form method="POST" action="/" onsubmit="handleSubmit()">
         {{ form.csrf_token }}
         {{ form.url(placeholder="YouTube URL...") }}
+        {{ form.download_token }}
         <button id="submit_button">Download</button>
     </form>
 </div>
 
 <script>
+    let downloadTimer;
+    let attempts = 30;
+
+    function setFormToken() {
+        const downloadToken = new Date().getTime();
+        document.getElementById('download_token').value = downloadToken;
+        return downloadToken;
+    }
+
+    function getCookie(name) {
+        const parts = document.cookie.split(name + "=");
+        if (parts.length == 2) return parts.pop().split(";").shift();
+    }
+
     function disableButton() {
         const button = document.getElementById('submit_button');
         button.disabled = true;
         button.innerText = "Processing...";
         button.classList.add('disabled');
     };
+
+    function enableButton() {
+        const button = document.getElementById('submit_button');
+        button.disabled = false;
+        button.innerText = "Download";
+        button.classList.remove('disabled');
+    }
+
+    function expireCookie(cName) {
+        document.cookie =
+            encodeURIComponent(cName) +
+            "=deleted; expires=" +
+            new Date(0).toUTCString();
+    }
+
+    function unblockSubmit() {
+        enableButton()
+        window.clearInterval(downloadTimer);
+        expireCookie("download_token");
+        location.href = '{{ redirect_url }}';
+    }
+
+    function handleSubmit() {
+        disableButton();
+        const downloadToken = setFormToken();
+
+        downloadTimer = window.setInterval(function () {
+            const token = getCookie('download_token');
+
+            if ((token == downloadToken) || (attempts == 0)) {
+                unblockSubmit();
+            }
+
+            attempts--;
+        }, 1000);
+    }
 </script>
 
 {% endblock %}

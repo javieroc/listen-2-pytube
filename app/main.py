@@ -1,4 +1,4 @@
-from flask import Flask, request, render_template, url_for, redirect, send_from_directory
+from flask import Flask, request, render_template, url_for, redirect, send_from_directory, make_response
 from forms import DownloadForm
 from downloader import download
 
@@ -17,10 +17,13 @@ def index():
 
     if request.method == 'POST' and form.validate_on_submit():
         url = form.url.data
-        app.logger.debug(url)
+        download_token = form.download_token.data
+        app.logger.debug(download_token)
         filename = download(url)
         app.logger.debug(filename)
-        return send_from_directory('/app/data', filename, as_attachment=True)# and redirect(url_for('index'))
+        response = make_response(send_from_directory('/app/data', filename, as_attachment=True))
+        response.set_cookie('download_token', download_token)
+        return response
 
     return render_template('index.html', form=form, redirect_url=url_for('index'))
 
