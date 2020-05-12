@@ -6,9 +6,25 @@
     <h1>Listen 2 Pytube</h1>
     <h3>Simple App to download videos and music from youtube</h3>
 
+    {% if form.errors.items()|length > 0 %}
+    <div class="errors">
+        {% for field, errors in form.errors.items() %}
+        <div>
+            {{ form[field].label }}: {{ ', '.join(errors) }}
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+
     <form method="POST" action="/" onsubmit="handleSubmit()">
         {{ form.csrf_token }}
         {{ form.url(placeholder="YouTube URL...") }}
+        {% for subfield in form.media_format %}
+        <tr>
+            <td>{{ subfield }}</td>
+            <td>{{ subfield.label }}</td>
+        </tr>
+        {% endfor %}
         {{ form.download_token }}
         <button id="submit_button">Download</button>
     </form>

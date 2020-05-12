@@ -10,11 +10,12 @@ div.content {
     padding: 20px;
 }
 
-form {
+form, div.errors {
     width: 600px;
+    box-sizing: border-box;
 }
 
-input, button {
+input[type=text], button {
     display: block;
     width: 100%;
     margin: 10px 0;
@@ -54,4 +55,12 @@ button.disabled:hover {
 
 h1 {
     color: lightskyblue;
+}
+
+.errors {
+    background-color: lightpink;
+    border: 2px solid lightcoral;
+    border-radius: 5px;
+    color: lightcoral;
+    padding: 10px;
 }

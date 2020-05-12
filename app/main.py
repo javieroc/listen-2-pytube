@@ -1,6 +1,6 @@
 from flask import Flask, request, render_template, url_for, redirect, send_from_directory, make_response
 from forms import DownloadForm
-from downloader import download
+from downloader import download_video, download_music
 
 app = Flask(__name__)
 
@@ -17,10 +17,14 @@ def index():
 
     if request.method == 'POST' and form.validate_on_submit():
         url = form.url.data
+        media_format = form.media_format.data
         download_token = form.download_token.data
-        app.logger.debug(download_token)
-        filename = download(url)
-        app.logger.debug(filename)
+
+        if media_format == 'video':
+            filename = download_video(url)
+        else:
+            filename = download_music(url)
+
         response = make_response(send_from_directory('/app/data', filename, as_attachment=True))
         response.set_cookie('download_token', download_token)
         return response
