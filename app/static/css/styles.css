@@ -7,7 +7,19 @@ body, html {
 div.content {
     display: flex;
     flex-direction: column;
+    align-items: center;
     padding: 20px;
+}
+
+img {
+    width: 20px;
+    height: 20px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
 form, div.errors {

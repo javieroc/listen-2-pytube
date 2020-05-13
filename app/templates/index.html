@@ -4,7 +4,8 @@
 
 <div class="content">
     <h1>Listen 2 Pytube</h1>
-    <h3>Simple App to download videos and music from youtube</h3>
+    <h3>Simple App to download videos and music from youtube <a href="https://github.com/javieroc/listen-2-pytube"
+            target="_blanck"><img src="{{ url_for('static', filename='img/gh.png')}}" /></a></h3>
 
     {% if form.errors.items()|length > 0 %}
     <div class="errors">
@@ -19,12 +20,14 @@
     <form method="POST" action="/" onsubmit="handleSubmit()">
         {{ form.csrf_token }}
         {{ form.url(placeholder="YouTube URL...") }}
-        {% for subfield in form.media_format %}
-        <tr>
-            <td>{{ subfield }}</td>
-            <td>{{ subfield.label }}</td>
-        </tr>
-        {% endfor %}
+        <div>
+            {% for subfield in form.media_format %}
+            <tr>
+                <td>{{ subfield }}</td>
+                <td>{{ subfield.label }}</td>
+            </tr>
+            {% endfor %}
+        </div>
         {{ form.download_token }}
         <button id="submit_button">Download</button>
     </form>
